@@ -32,5 +32,6 @@
 	<modules>
 		<module>aiyou-content-pojo</module>
 		<module>aiyou-content-dao</module>
+		<module>aiyou-content-interface</module>
 	</modules>
 </project>
