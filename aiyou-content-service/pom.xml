@@ -20,6 +20,11 @@
 			<artifactId>aiyou-content-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.huazai.b2c.aiyou</groupId>
+			<artifactId>aiyou-content-pojo</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<!-- spring的依赖 -->
 		<!-- Spring -->
 		<dependency>

@@ -25,12 +25,12 @@
 	<dubbo:protocol name="dubbo" port="20880" />
 
 	<!-- 声明实现类 -->
-	<!-- <bean id="tDubboServiceImpl"
-		class="com.huazai.b2c.aiyou.service.impl.TDubboServiceImpl" /> -->
+	<!-- <bean id="tDubboServiceImpl" class="com.huazai.b2c.aiyou.service.impl.TDubboServiceImpl" 
+		/> -->
 
 	<!-- 声明需要暴露的服务端口 -->
-	<!-- <dubbo:service
-		interface="com.huazai.b2c.aiyou.service.TDubboService"
-		ref="tDubboServiceImpl" /> -->
+	<dubbo:service
+		interface="com.huazai.b2c.aiyou.service.TbContentCategoryService"
+		ref="tbContentCategoryServiceImpl" />
 
 </beans>
