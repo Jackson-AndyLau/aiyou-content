@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+
+	<!-- 配置service扫描包 -->
+	<context:component-scan
+		base-package="com.huazai.b2c.aiyou.service" />
+
+	<!-- 使用Dubbo发布服务 -->
+	<!-- 提供方应用信息，用来计算依赖关系 -->
+	<dubbo:application name="aiyou-content" />
+	<dubbo:registry protocol="zookeeper"
+		address="192.168.159.148:2181" />
+	<!-- 使用dubbo协议在20880端口暴露服务 -->
+	<dubbo:protocol name="dubbo" port="20880" />
+
+	<!-- 声明实现类 -->
+	<!-- <bean id="tDubboServiceImpl"
+		class="com.huazai.b2c.aiyou.service.impl.TDubboServiceImpl" /> -->
+
+	<!-- 声明需要暴露的服务端口 -->
+	<!-- <dubbo:service
+		interface="com.huazai.b2c.aiyou.service.TDubboService"
+		ref="tDubboServiceImpl" /> -->
+
+</beans>
