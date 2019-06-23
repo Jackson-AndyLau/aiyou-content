@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.huazai.b2c.aiyou.common.EasyUITreeNode;
 import com.huazai.b2c.aiyou.mapper.TbContentCategoryMapper;
 import com.huazai.b2c.aiyou.pojo.TbContentCategory;
@@ -50,7 +50,7 @@ public class TbContentCategoryServiceImpl implements TbContentCategoryService
 			EasyUITreeNode treeNode = new EasyUITreeNode();
 			treeNode.setId(tbContentCategory.getId());
 			treeNode.setText(tbContentCategory.getName());
-			treeNode.setStatus(tbContentCategory.getIsParent() ? "closed" : "open");
+			treeNode.setState(tbContentCategory.getIsParent() ? "closed" : "open");
 			treeNodes.add(treeNode);
 		}
 		return treeNodes;

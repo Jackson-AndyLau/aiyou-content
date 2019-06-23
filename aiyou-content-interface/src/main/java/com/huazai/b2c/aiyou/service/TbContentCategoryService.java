@@ -20,5 +20,5 @@ import com.huazai.b2c.aiyou.common.EasyUITreeNode;
 public interface TbContentCategoryService
 {
 	
-	List<EasyUITreeNode> getTbContentCategoryList(Long parentId); 
+	public List<EasyUITreeNode> getTbContentCategoryList(Long parentId); 
 }
