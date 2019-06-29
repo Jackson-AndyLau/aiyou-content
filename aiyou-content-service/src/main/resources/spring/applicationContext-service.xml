@@ -24,10 +24,6 @@
 	<!-- 使用dubbo协议在20881端口暴露服务 -->
 	<dubbo:protocol name="dubbo" port="20881" />
 
-	<!-- 声明实现类 -->
-	<bean id="tbContentCategoryServiceImpl"
-		class="com.huazai.b2c.aiyou.service.impl.TbContentCategoryServiceImpl" />
-
 	<!-- 声明需要暴露的服务端口 -->
 	<dubbo:service
 		interface="com.huazai.b2c.aiyou.service.TbContentCategoryService"
