@@ -45,6 +45,8 @@ public class TbContentCategoryServiceImpl implements TbContentCategoryService
 		// 3、设置查询条件
 		Criteria createCriteria = categoryExample.createCriteria();
 		createCriteria.andParentIdEqualTo(parentId);
+		// 在实际的项目开发中，需要通过status来控制
+		// createCriteria.andStatusEqualTo(1);
 		// 4、获得数据集合
 		List<TbContentCategory> contentCategories = tbContentCategoryMapper.selectByExample(categoryExample);
 		// 5、封装数据
@@ -84,6 +86,46 @@ public class TbContentCategoryServiceImpl implements TbContentCategoryService
 		}
 		// 4、返回实体TbContentCategory
 		return AiyouResultData.ok(contentCategory);
+	}
+
+	@Override
+	public AiyouResultData updateTbContentCategory(Long id, String name)
+	{
+		// 1、根据内容ID获取TbContentCategory对象，并设置修改参数
+		TbContentCategory contentCategory = tbContentCategoryMapper.selectByPrimaryKey(id);
+		contentCategory.setName(name);
+		contentCategory.setUpdated(new Date());
+		// 2、根据ID修改TbContentCategory对象
+		tbContentCategoryMapper.updateByPrimaryKey(contentCategory);
+		return AiyouResultData.ok();
+	}
+
+	@Transactional
+	@Override
+	public AiyouResultData deleteTbContentCategory(Long id)
+	{
+		// 1、根据ID获取TbContentCategory对象信息
+		TbContentCategory tbContentCategory = tbContentCategoryMapper.selectByPrimaryKey(id);
+		// 2、判断是否是父级节点，否则无法删除
+		if (tbContentCategory.getIsParent())
+		{
+			return AiyouResultData.build(0, "不能删除父级节点");
+		}
+		// 3、正常删除(这儿直接做删除，但是在实际的项目开发中，需要通过status来控制)
+		tbContentCategoryMapper.deleteByPrimaryKey(id);
+		// 4、查看其父级节点是否还存在叶子节点
+		TbContentCategoryExample example = new TbContentCategoryExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andParentIdEqualTo(tbContentCategory.getParentId());
+		List<TbContentCategory> list = tbContentCategoryMapper.selectByExample(example);
+		// 5、不存在，则将该父级节点的isParent修改false
+		if (list.size() == 0)
+		{
+			TbContentCategory category = tbContentCategoryMapper.selectByPrimaryKey(tbContentCategory.getParentId());
+			category.setIsParent(false);
+			tbContentCategoryMapper.updateByPrimaryKey(category);
+		}
+		return AiyouResultData.ok();
 	}
 
 }

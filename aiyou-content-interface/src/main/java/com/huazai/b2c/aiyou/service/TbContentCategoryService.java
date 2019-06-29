@@ -5,7 +5,6 @@ import java.util.List;
 import com.huazai.b2c.aiyou.common.EasyUITreeNode;
 import com.huazai.b2c.aiyou.repo.AiyouResultData;
 
-
 /**
  * 
  * @author HuaZai
@@ -47,11 +46,48 @@ public interface TbContentCategoryService
 	 * @description 添加 TbContentCategory
 	 *              </ul>
 	 * @createdTime 2017年06月10日
-	 * @param parentId 父级ID
-	 * @param name 添加的节点名称
+	 * @param parentId
+	 *            父级ID
+	 * @param name
+	 *            添加的节点名称
 	 * @return AiyouResultData
 	 *
 	 * @version : V1.0.0
 	 */
 	public AiyouResultData addTbContentCategory(Long parentId, String name);
+
+	/**
+	 * 
+	 * @author HuaZai
+	 * @contact who.seek.me@java98k.vip
+	 * @title updateTbContentCategory
+	 *        <ul>
+	 * @description 实现内容分类的修改
+	 *              </ul>
+	 * @createdTime 2017年06月10日
+	 * @param id
+	 *            内容ID
+	 * @param name
+	 *            需要修改的内容名称
+	 * @return AiyouResultData
+	 *
+	 * @version : V1.0.0
+	 */
+	public AiyouResultData updateTbContentCategory(Long id, String name);
+
+	/**
+	 * 
+	 * @author HuaZai
+	 * @contact who.seek.me@java98k.vip
+	 * @title deleteTbContentCategory
+	 *        <ul>
+	 * @description 删除TbContentCategory对象
+	 *              </ul>
+	 * @createdTime 2017年06月11日
+	 * @param id
+	 * @return AiyouResultData
+	 *
+	 * @version : V1.0.0
+	 */
+	public AiyouResultData deleteTbContentCategory(Long id);
 }
