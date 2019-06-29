@@ -1,16 +1,20 @@
 package com.huazai.b2c.aiyou.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.huazai.b2c.aiyou.common.Constant;
 import com.huazai.b2c.aiyou.common.EasyUITreeNode;
 import com.huazai.b2c.aiyou.mapper.TbContentCategoryMapper;
 import com.huazai.b2c.aiyou.pojo.TbContentCategory;
 import com.huazai.b2c.aiyou.pojo.TbContentCategoryExample;
 import com.huazai.b2c.aiyou.pojo.TbContentCategoryExample.Criteria;
+import com.huazai.b2c.aiyou.repo.AiyouResultData;
 import com.huazai.b2c.aiyou.service.TbContentCategoryService;
 
 /**
@@ -54,6 +58,32 @@ public class TbContentCategoryServiceImpl implements TbContentCategoryService
 			treeNodes.add(treeNode);
 		}
 		return treeNodes;
+	}
+
+	@Transactional
+	@Override
+	public AiyouResultData addTbContentCategory(Long parentId, String name)
+	{
+		// 1、初始化TbContentCategory对象，并补全参数
+		TbContentCategory contentCategory = new TbContentCategory();
+		contentCategory.setParentId(parentId);
+		contentCategory.setName(name);
+		contentCategory.setStatus(Constant.CONTENT_CATEGORY_DEFAULT_STATUS);
+		contentCategory.setSortOrder(1); // 排列序号，表示同级目录展示的次序，必须大于零的整数即可
+		contentCategory.setIsParent(false); // 默认为叶子节点
+		contentCategory.setCreated(new Date());
+		contentCategory.setUpdated(new Date());
+		// 2、新增TbContentCategory
+		tbContentCategoryMapper.insert(contentCategory);
+		// 3、判断父节点的isparent是否为ture,否则需要修改为true
+		TbContentCategory tbContentCategory = tbContentCategoryMapper.selectByPrimaryKey(parentId);
+		if (!tbContentCategory.getIsParent())
+		{
+			tbContentCategory.setIsParent(true);
+			tbContentCategoryMapper.updateByPrimaryKey(tbContentCategory);
+		}
+		// 4、返回实体TbContentCategory
+		return AiyouResultData.ok(contentCategory);
 	}
 
 }
