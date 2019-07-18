@@ -1,5 +1,6 @@
 package com.huazai.b2c.aiyou.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.huazai.b2c.aiyou.mapper.TbContentMapper;
 import com.huazai.b2c.aiyou.pojo.TbContent;
 import com.huazai.b2c.aiyou.pojo.TbContentExample;
 import com.huazai.b2c.aiyou.pojo.TbContentExample.Criteria;
+import com.huazai.b2c.aiyou.repo.AiyouResultData;
 import com.huazai.b2c.aiyou.service.TbContentService;
 
 /**
@@ -37,25 +39,50 @@ public class TbContentServiceImpl implements TbContentService
 	@Override
 	public EasyUIDataGrid getTbContentList(Integer pageNum, Integer pageSize, TbContent tbContent)
 	{
-		// 1、通过PageHelper实现分页
-		PageHelper.startPage(pageNum, pageSize);
-		// 2、查询TbContent分页数据
-		TbContentExample example = new TbContentExample();
-		Criteria criteria = example.createCriteria();
-		// 这个ID是必须的，否则需要进行对象null的判断
-		criteria.andCategoryIdEqualTo(tbContent.getCategoryId());
-		// 3、获取数据集合
-		List<TbContent> list = tbContentMapper.selectByExample(example);
-		// 4、获取分页信息
-		PageInfo<TbContent> pageInfo = new PageInfo<>(list);
-		// 5、封装数据
+		// 初始化内容数据载体
 		EasyUIDataGrid resultDataGrid = new EasyUIDataGrid();
-		resultDataGrid.setTotal(pageInfo.getTotal());
-		resultDataGrid.setPageSize(pageInfo.getPageSize());
-		resultDataGrid.setPageNum(pageInfo.getPageNum());
-		resultDataGrid.setPages(pageInfo.getPages());
-		resultDataGrid.setRows(list);
+		try
+		{
+			// 通过PageHelper实现分页
+			PageHelper.startPage(pageNum, pageSize);
+			// 查询TbContent分页数据
+			TbContentExample example = new TbContentExample();
+			Criteria criteria = example.createCriteria();
+			// 这个ID是必须的，否则需要进行对象null的判断
+			criteria.andCategoryIdEqualTo(tbContent.getCategoryId());
+			// 获取数据集合
+			List<TbContent> list = tbContentMapper.selectByExample(example);
+			// 获取分页信息
+			PageInfo<TbContent> pageInfo = new PageInfo<>(list);
+			// 封装数据
+			resultDataGrid.setTotal(pageInfo.getTotal());
+			resultDataGrid.setPageSize(pageInfo.getPageSize());
+			resultDataGrid.setPageNum(pageInfo.getPageNum());
+			resultDataGrid.setPages(pageInfo.getPages());
+			resultDataGrid.setRows(list);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 		return resultDataGrid;
+	}
+
+	@Override
+	public AiyouResultData addTbContent(TbContent tbContent)
+	{
+		try
+		{
+			// 补全内容信息
+			Date date = new Date();
+			tbContent.setCreated(date);
+			tbContent.setUpdated(date);
+			tbContentMapper.insert(tbContent);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			return AiyouResultData.build(-1, "网站内容添加异常");
+		}
+		return AiyouResultData.ok();
 	}
 
 }
