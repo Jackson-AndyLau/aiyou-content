@@ -58,4 +58,38 @@ public interface TbContentService
 	 */
 	public AiyouResultData addTbContent(TbContent tbContent);
 
+	/**
+	 * 
+	 * @author HuaZai
+	 * @contact who.seek.me@java98k.vip
+	 * @title deleteTbContent
+	 *        <ul>
+	 * @description 根据内容ID删除网站内容
+	 *              </ul>
+	 * @createdTime 2017年06月12日
+	 * @param ids
+	 *            内容ID集合
+	 * @return AiyouResultData 数据载体
+	 *
+	 * @version : V1.0.0
+	 */
+	public AiyouResultData deleteTbContent(String ids);
+
+	/**
+	 * 
+	 * @author HuaZai
+	 * @contact who.seek.me@java98k.vip
+	 * @title updateTbContent
+	 *        <ul>
+	 * @description 修改网站内容
+	 *              </ul>
+	 * @createdTime 2017年06月12日
+	 * @param tbContent
+	 *            网站内容实体
+	 * @return AiyouResultData 数据载体
+	 *
+	 * @version : V1.0.0
+	 */
+	public AiyouResultData updateTbContent(TbContent tbContent);
+
 }

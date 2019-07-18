@@ -76,11 +76,49 @@ public class TbContentServiceImpl implements TbContentService
 			Date date = new Date();
 			tbContent.setCreated(date);
 			tbContent.setUpdated(date);
+			// 新增数据
 			tbContentMapper.insert(tbContent);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 			return AiyouResultData.build(-1, "网站内容添加异常");
+		}
+		return AiyouResultData.ok();
+	}
+
+	@Override
+	public AiyouResultData deleteTbContent(String ids)
+	{
+		try
+		{
+			String[] dsStrings = ids.split(",");
+			for (int i = 0; i < dsStrings.length; i++)
+			{
+				// 根据主建ID删除网站内容
+				tbContentMapper.deleteByPrimaryKey(Long.valueOf(dsStrings[i]));
+			}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			return AiyouResultData.build(-1, "网站内容删除异常");
+		}
+		return AiyouResultData.ok();
+	}
+
+	@Override
+	public AiyouResultData updateTbContent(TbContent tbContent)
+	{
+		try
+		{
+			// 补全信息
+			Date date = new Date();
+			tbContent.setUpdated(date);
+			// 根据主建ID修改网站内容
+			tbContentMapper.updateByPrimaryKey(tbContent);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			return AiyouResultData.build(-1, "网站内容修改异常");
 		}
 		return AiyouResultData.ok();
 	}
