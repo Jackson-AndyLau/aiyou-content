@@ -51,7 +51,7 @@ public class TbContentServiceImpl implements TbContentService
 			// 这个ID是必须的，否则需要进行对象null的判断
 			criteria.andCategoryIdEqualTo(tbContent.getCategoryId());
 			// 获取数据集合
-			List<TbContent> list = tbContentMapper.selectByExample(example);
+			List<TbContent> list = tbContentMapper.selectByExampleWithBLOBs(example);
 			// 获取分页信息
 			PageInfo<TbContent> pageInfo = new PageInfo<>(list);
 			// 封装数据
@@ -110,11 +110,20 @@ public class TbContentServiceImpl implements TbContentService
 	{
 		try
 		{
+			TbContent content = tbContentMapper.selectByPrimaryKey(tbContent.getId());
 			// 补全信息
 			Date date = new Date();
-			tbContent.setUpdated(date);
+			content.setCategoryId(tbContent.getCategoryId());
+			content.setTitle(tbContent.getTitle());
+			content.setSubTitle(tbContent.getSubTitle());
+			content.setTitleDesc(tbContent.getTitleDesc());
+			content.setUrl(tbContent.getUrl());
+			content.setPic(tbContent.getPic());
+			content.setPic2(tbContent.getPic2());
+			content.setUpdated(date);
+			content.setContent(tbContent.getContent());
 			// 根据主建ID修改网站内容
-			tbContentMapper.updateByPrimaryKey(tbContent);
+			tbContentMapper.updateByPrimaryKeyWithBLOBs(content);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
