@@ -132,4 +132,16 @@ public class TbContentServiceImpl implements TbContentService
 		return AiyouResultData.ok();
 	}
 
+	@Override
+	public List<TbContent> geTbContentListByCid(Long cid)
+	{
+		// 根据分类ID查询网站内容
+		TbContentExample example = new TbContentExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andCategoryIdEqualTo(cid);
+		// 执行查询并返回
+		List<TbContent> list = tbContentMapper.selectByExample(example);
+		return list;
+	}
+
 }

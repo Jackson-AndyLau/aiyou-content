@@ -1,5 +1,7 @@
 package com.huazai.b2c.aiyou.service;
 
+import java.util.List;
+
 import com.huazai.b2c.aiyou.common.EasyUIDataGrid;
 import com.huazai.b2c.aiyou.pojo.TbContent;
 import com.huazai.b2c.aiyou.repo.AiyouResultData;
@@ -91,5 +93,22 @@ public interface TbContentService
 	 * @version : V1.0.0
 	 */
 	public AiyouResultData updateTbContent(TbContent tbContent);
+
+	/**
+	 * 
+	 * @author HuaZai
+	 * @contact who.seek.me@java98k.vip
+	 * @title geTbContentListByCid
+	 *        <ul>
+	 * @description 根据分类ID获取网站内容
+	 *              </ul>
+	 * @createdTime 2017年06月13日
+	 * @param cid
+	 * @return
+	 * @return List<TbContent>
+	 *
+	 * @version : V1.0.0
+	 */
+	public List<TbContent> geTbContentListByCid(Long cid);
 
 }
