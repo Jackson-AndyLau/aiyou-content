@@ -3,9 +3,12 @@ package com.huazai.b2c.aiyou.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.dubbo.rpc.Result;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.huazai.b2c.aiyou.common.EasyUIDataGrid;
@@ -15,6 +18,8 @@ import com.huazai.b2c.aiyou.pojo.TbContentExample;
 import com.huazai.b2c.aiyou.pojo.TbContentExample.Criteria;
 import com.huazai.b2c.aiyou.repo.AiyouResultData;
 import com.huazai.b2c.aiyou.service.TbContentService;
+import com.huazai.b2c.aiyou.service.TbJedisClientService;
+import com.huazai.b2c.aiyou.utils.JsonUtils;
 
 /**
  * 
@@ -35,6 +40,12 @@ public class TbContentServiceImpl implements TbContentService
 
 	@Autowired
 	private TbContentMapper tbContentMapper;
+
+	@Autowired
+	private TbJedisClientService tbJedisClientService;
+
+	@Value("${CONTENT_KEY}")
+	private String CONTENT_KEY;
 
 	@Override
 	public EasyUIDataGrid getTbContentList(Integer pageNum, Integer pageSize, TbContent tbContent)
@@ -96,6 +107,9 @@ public class TbContentServiceImpl implements TbContentService
 			{
 				// 根据主建ID删除网站内容
 				tbContentMapper.deleteByPrimaryKey(Long.valueOf(dsStrings[i]));
+				// 同步缓存
+				TbContent tbContent = tbContentMapper.selectByPrimaryKey(Long.valueOf(dsStrings[i]));
+				tbJedisClientService.hdel(CONTENT_KEY, String.valueOf(tbContent.getCategoryId()));
 			}
 		} catch (Exception e)
 		{
@@ -124,6 +138,9 @@ public class TbContentServiceImpl implements TbContentService
 			content.setContent(tbContent.getContent());
 			// 根据主建ID修改网站内容
 			tbContentMapper.updateByPrimaryKeyWithBLOBs(content);
+
+			// 首先同步缓存
+			tbJedisClientService.hdel(CONTENT_KEY, String.valueOf(tbContent.getCategoryId()));
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -135,12 +152,31 @@ public class TbContentServiceImpl implements TbContentService
 	@Override
 	public List<TbContent> geTbContentListByCid(Long cid)
 	{
+		try
+		{
+			// 先从缓存中获取数据
+			String jsonData = tbJedisClientService.hget(CONTENT_KEY, String.valueOf(cid));
+			// 将json反序列化为TbContent集合
+			if (StringUtils.isNoneBlank(jsonData))
+			{
+				List<TbContent> list = JsonUtils.jsonToList(jsonData, TbContent.class);
+				return list;
+			}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
 		// 根据分类ID查询网站内容
 		TbContentExample example = new TbContentExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andCategoryIdEqualTo(cid);
 		// 执行查询并返回
 		List<TbContent> list = tbContentMapper.selectByExample(example);
+
+		// 将数据写入缓存
+		tbJedisClientService.hset(CONTENT_KEY, String.valueOf(cid), JsonUtils.objectToJson(list));
+
 		return list;
 	}
 

@@ -13,7 +13,7 @@ package com.huazai.b2c.aiyou.service;
  *
  * @version V1.0.0
  */
-public interface TJedisClientService
+public interface TbJedisClientService
 {
 
 	/**
@@ -173,5 +173,5 @@ public interface TJedisClientService
 	 *
 	 * @version : V1.0.0
 	 */
-	Long hdel(String key, String... field);
+	Long hdel(String key, String...field);
 }
