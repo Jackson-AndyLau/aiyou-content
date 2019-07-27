@@ -11,7 +11,7 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
-	<!-- 配置Jedis单机版连接 -->
+	<!-- 配置Jedis单机版连接（注意：单机版和集群版不能共存） -->
 	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
 		<constructor-arg name="host" value="192.168.159.144" />
 		<constructor-arg name="port" value="6379" />
@@ -19,4 +19,45 @@
 	<bean id="tJedisPoolServiceImpl"
 		class="com.huazai.b2c.aiyou.service.impl.TJedisPoolServiceImpl" />
 
+	<!-- 配置Jedis集群版连接（注意：单机版和集群版不能共存） -->
+	<!-- <bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
+		<constructor-arg>
+			<set>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host"
+						value="192.168.159.144" />
+					<constructor-arg name="port" value="8001" />
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host"
+						value="192.168.159.144" />
+					<constructor-arg name="port" value="8002" />
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host"
+						value="192.168.159.144" />
+					<constructor-arg name="port" value="8003" />
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host"
+						value="192.168.159.144" />
+					<constructor-arg name="port" value="8004" />
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host"
+						value="192.168.159.144" />
+					<constructor-arg name="port" value="8005" />
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host"
+						value="192.168.159.144" />
+					<constructor-arg name="port" value="8006" />
+				</bean>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="tJedisClusterServiceImpl"
+		class="com.huazai.b2c.aiyou.service.impl.TJedisClusterServiceImpl" /> -->
+		
+		
 </beans>
