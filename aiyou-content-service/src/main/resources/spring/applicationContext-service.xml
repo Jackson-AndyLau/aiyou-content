@@ -23,7 +23,7 @@
 	<!-- 提供方应用信息，用来计算依赖关系 -->
 	<dubbo:application name="aiyou-content" />
 	<dubbo:registry protocol="zookeeper"
-		address="${dubbo.registry.address}" />
+		address="${single.zookeeper.baseUrl}" />
 	<!-- 使用dubbo协议在20881端口暴露服务 -->
 	<dubbo:protocol name="dubbo" port="20881" />
 
