@@ -2,7 +2,7 @@ package com.huazai.b2c.aiyou.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.huazai.b2c.aiyou.service.TbJedisClientService;
+import com.huazai.aiyou.content.service.TbJedisClientService;
 
 import redis.clients.jedis.JedisCluster;
 

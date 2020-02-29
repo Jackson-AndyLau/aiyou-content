@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.huazai.aiyou.content.service.TbContentService;
+import com.huazai.aiyou.content.service.TbJedisClientService;
+import com.huazai.aiyou.manager.pojo.TbContent;
+import com.huazai.aiyou.manager.pojo.TbContentExample;
+import com.huazai.aiyou.manager.pojo.TbContentExample.Criteria;
 import com.huazai.b2c.aiyou.common.EasyUIDataGrid;
 import com.huazai.b2c.aiyou.mapper.TbContentMapper;
-import com.huazai.b2c.aiyou.pojo.TbContent;
-import com.huazai.b2c.aiyou.pojo.TbContentExample;
-import com.huazai.b2c.aiyou.pojo.TbContentExample.Criteria;
 import com.huazai.b2c.aiyou.repo.AiyouResultData;
-import com.huazai.b2c.aiyou.service.TbContentService;
-import com.huazai.b2c.aiyou.service.TbJedisClientService;
 import com.huazai.b2c.aiyou.utils.JsonUtils;
 
 /**

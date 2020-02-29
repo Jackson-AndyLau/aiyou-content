@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.format.number.money.MonetaryAmountFormatter;
 
-import com.huazai.b2c.aiyou.service.TbJedisClientService;
+import com.huazai.aiyou.content.service.TbJedisClientService;
 
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;

@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.huazai.aiyou.content.service.TbContentCategoryService;
+import com.huazai.aiyou.manager.pojo.TbContentCategory;
+import com.huazai.aiyou.manager.pojo.TbContentCategoryExample;
+import com.huazai.aiyou.manager.pojo.TbContentCategoryExample.Criteria;
 import com.huazai.b2c.aiyou.common.Constant;
 import com.huazai.b2c.aiyou.common.EasyUITreeNode;
 import com.huazai.b2c.aiyou.mapper.TbContentCategoryMapper;
-import com.huazai.b2c.aiyou.pojo.TbContentCategory;
-import com.huazai.b2c.aiyou.pojo.TbContentCategoryExample;
-import com.huazai.b2c.aiyou.pojo.TbContentCategoryExample.Criteria;
 import com.huazai.b2c.aiyou.repo.AiyouResultData;
-import com.huazai.b2c.aiyou.service.TbContentCategoryService;
 
 /**
  * 
