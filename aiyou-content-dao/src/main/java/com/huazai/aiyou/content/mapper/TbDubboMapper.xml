@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.huazai.aiyou.manager.mapper.TbDubboMapper">
+<mapper namespace="com.huazai.aiyou.content.mapper.TbDubboMapper">
 	<select id="getLocalDate" resultType="string">
 		select NOW()
 	</select>
