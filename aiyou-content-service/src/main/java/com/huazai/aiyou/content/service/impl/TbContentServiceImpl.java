@@ -1,4 +1,4 @@
-package com.huazai.b2c.aiyou.service.impl;
+package com.huazai.aiyou.content.service.impl;
 
 import java.util.Date;
 import java.util.List;
@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.huazai.aiyou.common.module.EasyUIDataGrid;
+import com.huazai.aiyou.common.response.AiyouResultData;
+import com.huazai.aiyou.common.utils.JsonUtils;
+import com.huazai.aiyou.content.mapper.TbContentMapper;
+import com.huazai.aiyou.content.pojo.TbContent;
+import com.huazai.aiyou.content.pojo.TbContentExample;
+import com.huazai.aiyou.content.pojo.TbContentExample.Criteria;
 import com.huazai.aiyou.content.service.TbContentService;
 import com.huazai.aiyou.content.service.TbJedisClientService;
-import com.huazai.aiyou.manager.pojo.TbContent;
-import com.huazai.aiyou.manager.pojo.TbContentExample;
-import com.huazai.aiyou.manager.pojo.TbContentExample.Criteria;
-import com.huazai.b2c.aiyou.common.EasyUIDataGrid;
-import com.huazai.b2c.aiyou.mapper.TbContentMapper;
-import com.huazai.b2c.aiyou.repo.AiyouResultData;
-import com.huazai.b2c.aiyou.utils.JsonUtils;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package com.huazai.b2c.aiyou.service.impl;
+package com.huazai.aiyou.content.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.huazai.aiyou.common.constant.TbConstant;
+import com.huazai.aiyou.common.module.EasyUITreeNode;
+import com.huazai.aiyou.common.response.AiyouResultData;
+import com.huazai.aiyou.content.mapper.TbContentCategoryMapper;
+import com.huazai.aiyou.content.pojo.TbContentCategory;
+import com.huazai.aiyou.content.pojo.TbContentCategoryExample;
+import com.huazai.aiyou.content.pojo.TbContentCategoryExample.Criteria;
 import com.huazai.aiyou.content.service.TbContentCategoryService;
-import com.huazai.aiyou.manager.pojo.TbContentCategory;
-import com.huazai.aiyou.manager.pojo.TbContentCategoryExample;
-import com.huazai.aiyou.manager.pojo.TbContentCategoryExample.Criteria;
-import com.huazai.b2c.aiyou.common.Constant;
-import com.huazai.b2c.aiyou.common.EasyUITreeNode;
-import com.huazai.b2c.aiyou.mapper.TbContentCategoryMapper;
-import com.huazai.b2c.aiyou.repo.AiyouResultData;
 
 /**
  * 
@@ -70,7 +70,7 @@ public class TbContentCategoryServiceImpl implements TbContentCategoryService
 		TbContentCategory contentCategory = new TbContentCategory();
 		contentCategory.setParentId(parentId);
 		contentCategory.setName(name);
-		contentCategory.setStatus(Constant.CONTENT_CATEGORY_DEFAULT_STATUS);
+		contentCategory.setStatus(TbConstant.CONTENT_CATEGORY_DEFAULT_STATUS);
 		contentCategory.setSortOrder(1); // 排列序号，表示同级目录展示的次序，必须大于零的整数即可
 		contentCategory.setIsParent(false); // 默认为叶子节点
 		contentCategory.setCreated(new Date());

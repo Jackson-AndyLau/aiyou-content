@@ -10,16 +10,19 @@
 	<artifactId>aiyou-content-service</artifactId>
 	<packaging>war</packaging>
 	<dependencies>
+		<!-- 引入 aiyou-content-dao 依赖包 -->
 		<dependency>
 			<groupId>com.huazai.aiyou.content</groupId>
 			<artifactId>aiyou-content-dao</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<!-- 引入 aiyou-content-interface 依赖包 -->
 		<dependency>
 			<groupId>com.huazai.aiyou.content</groupId>
 			<artifactId>aiyou-content-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<!-- 引入 aiyou-content-pojo 依赖包 -->
 		<dependency>
 			<groupId>com.huazai.aiyou.content</groupId>
 			<artifactId>aiyou-content-pojo</artifactId>

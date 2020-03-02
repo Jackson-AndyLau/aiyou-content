@@ -1,4 +1,4 @@
-package com.huazai.b2c.aiyou.service.impl;
+package com.huazai.aiyou.content.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

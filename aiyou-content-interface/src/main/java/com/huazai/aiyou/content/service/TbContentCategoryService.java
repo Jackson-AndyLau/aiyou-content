@@ -2,8 +2,8 @@ package com.huazai.aiyou.content.service;
 
 import java.util.List;
 
-import com.huazai.b2c.aiyou.common.EasyUITreeNode;
-import com.huazai.b2c.aiyou.repo.AiyouResultData;
+import com.huazai.aiyou.common.module.EasyUITreeNode;
+import com.huazai.aiyou.common.response.AiyouResultData;
 
 /**
  * 
