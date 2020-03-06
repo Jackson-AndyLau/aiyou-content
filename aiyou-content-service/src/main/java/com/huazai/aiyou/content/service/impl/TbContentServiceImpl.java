@@ -43,8 +43,8 @@ public class TbContentServiceImpl implements TbContentService
 	@Autowired
 	private TbJedisClientService tbJedisClientService;
 
-	@Value("${CONTENT_KEY}")
-	private String CONTENT_KEY;
+	@Value("${AIYOU_TB_CONTENT_KEY}")
+	private String AIYOU_TB_CONTENT_KEY;
 
 	@Override
 	public EasyUIDataGrid getTbContentList(Integer pageNum, Integer pageSize, TbContent tbContent)
@@ -108,7 +108,7 @@ public class TbContentServiceImpl implements TbContentService
 				tbContentMapper.deleteByPrimaryKey(Long.valueOf(dsStrings[i]));
 				// 同步缓存
 				TbContent tbContent = tbContentMapper.selectByPrimaryKey(Long.valueOf(dsStrings[i]));
-				tbJedisClientService.hdel(CONTENT_KEY, String.valueOf(tbContent.getCategoryId()));
+				tbJedisClientService.hdel(AIYOU_TB_CONTENT_KEY, String.valueOf(tbContent.getCategoryId()));
 			}
 		} catch (Exception e)
 		{
@@ -139,7 +139,7 @@ public class TbContentServiceImpl implements TbContentService
 			tbContentMapper.updateByPrimaryKeyWithBLOBs(content);
 
 			// 首先同步缓存
-			tbJedisClientService.hdel(CONTENT_KEY, String.valueOf(tbContent.getCategoryId()));
+			tbJedisClientService.hdel(AIYOU_TB_CONTENT_KEY, String.valueOf(tbContent.getCategoryId()));
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -154,7 +154,7 @@ public class TbContentServiceImpl implements TbContentService
 		try
 		{
 			// 先从缓存中获取数据
-			String jsonData = tbJedisClientService.hget(CONTENT_KEY, String.valueOf(cid));
+			String jsonData = tbJedisClientService.hget(AIYOU_TB_CONTENT_KEY, String.valueOf(cid));
 			// 将json反序列化为TbContent集合
 			if (StringUtils.isNoneBlank(jsonData))
 			{
@@ -174,7 +174,7 @@ public class TbContentServiceImpl implements TbContentService
 		List<TbContent> list = tbContentMapper.selectByExample(example);
 
 		// 将数据写入缓存
-		tbJedisClientService.hset(CONTENT_KEY, String.valueOf(cid), JsonUtils.objectToJson(list));
+		tbJedisClientService.hset(AIYOU_TB_CONTENT_KEY, String.valueOf(cid), JsonUtils.objectToJson(list));
 
 		return list;
 	}
