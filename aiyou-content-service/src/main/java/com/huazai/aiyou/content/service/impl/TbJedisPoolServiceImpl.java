@@ -181,7 +181,20 @@ public class TbJedisPoolServiceImpl implements TbJedisClientService
 	@Override
 	public Long hdel(String key, String... field)
 	{
-		// TODO Auto-generated method stub
+		
+		Jedis jedis = null;
+		try
+		{
+			jedis = jedisPool.getResource();
+			Long result = jedis.hdel(key, field);
+			return result;
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			jedis.close();
+		}
 		return null;
 	}
 

@@ -88,6 +88,8 @@ public class TbContentServiceImpl implements TbContentService
 			tbContent.setUpdated(date);
 			// 新增数据
 			tbContentMapper.insert(tbContent);
+			// 清除缓存
+			tbJedisClientService.hdel(AIYOU_TB_CONTENT_KEY, String.valueOf(tbContent.getCategoryId()));
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -156,7 +158,7 @@ public class TbContentServiceImpl implements TbContentService
 			// 先从缓存中获取数据
 			String jsonData = tbJedisClientService.hget(AIYOU_TB_CONTENT_KEY, String.valueOf(cid));
 			// 将json反序列化为TbContent集合
-			if (StringUtils.isNoneBlank(jsonData))
+			if (StringUtils.isNotEmpty(jsonData))
 			{
 				List<TbContent> list = JsonUtils.jsonToList(jsonData, TbContent.class);
 				return list;
