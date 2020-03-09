@@ -104,11 +104,11 @@ public class TbContentServiceImpl implements TbContentService
 			String[] dsStrings = ids.split(",");
 			for (int i = 0; i < dsStrings.length; i++)
 			{
-				// 根据主建ID删除网站内容
-				tbContentMapper.deleteByPrimaryKey(Long.valueOf(dsStrings[i]));
 				// 同步缓存
 				TbContent tbContent = tbContentMapper.selectByPrimaryKey(Long.valueOf(dsStrings[i]));
 				tbJedisClientService.hdel(AIYOU_TB_CONTENT_KEY, String.valueOf(tbContent.getCategoryId()));
+				// 根据主建ID删除网站内容
+				tbContentMapper.deleteByPrimaryKey(Long.valueOf(dsStrings[i]));
 			}
 		} catch (Exception e)
 		{
